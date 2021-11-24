@@ -10,17 +10,16 @@ public class SudokuGrid : MonoBehaviour
     public float _squareScale = 1.0f;
     public GameObject _gridSquare;
     public Vector2 _startPosition = new Vector2(0.0f, 0.0f);
+    private int _selectedGridData = -1;
+
     private List<GameObject> _gridSquares = new List<GameObject>();
     
     void Start()
     {
         if (_gridSquare.GetComponent<GridSquare>() == null)
             Debug.LogError("Error");
-    }
-
-    void Update()
-    {
-        
+        CreateGrid();
+        SetGridNumber("Easy");
     }
     private void CreateGrid()
     {
@@ -52,14 +51,27 @@ public class SudokuGrid : MonoBehaviour
         {
             if(_columnNumber + 1 > _columns)
             {
-                _rowNumber +;
+                _rowNumber ++;
                 _columnNumber = 0;
             }
-            var _posxOffset = offset.x * _columnNumber;
-            var _posyOffset = offset.y * _rowNumber;
-            _square.GetComponent<RectTransform>().anchoredPosition = new Vector2(_startPosition.x + _posxOffset, _startPosition.y - _posyOffset);
+            var _posXOffset = offset.x * _columnNumber;
+            var _posYOffset = offset.y * _rowNumber;
+            _square.GetComponent<RectTransform>().anchoredPosition = new Vector2(_startPosition.x + _posXOffset, _startPosition.y - _posYOffset);
+            _columnNumber++;
         }
     }
 
-
+    private void SetGridNumber(string _level)
+    {
+        _selectedGridData = Random.Range(0, SudokuData.Instance._sudokuGame[_level].Count);
+        var _data = SudokuData.Instance._sudokuGame[_level][_selectedGridData];
+        SetGridSquareData(_data);
+    }
+    private void SetGridSquareData(SudokuData.SudokuBoardData _data)
+    {
+        for(int i = 0; i < _gridSquares.Count; i++)
+        {
+            _gridSquares[i].GetComponent<GridSquare>().SetNumber(_data._unsolvedData[i]);
+        }
+    }
 }
