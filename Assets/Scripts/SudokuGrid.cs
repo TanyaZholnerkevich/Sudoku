@@ -18,8 +18,9 @@ public class SudokuGrid : MonoBehaviour
     {
         if (_gridSquare.GetComponent<GridSquare>() == null)
             Debug.LogError("Error");
+
         CreateGrid();
-        SetGridNumber("Easy");
+        SetGridNumber(GameSettings.Instance.GetGameMode());
     }
     private void CreateGrid()
     {
@@ -33,7 +34,7 @@ public class SudokuGrid : MonoBehaviour
             for(int column = 0; column < _columns; column++)
             {
                 _gridSquares.Add(Instantiate(_gridSquare) as GameObject);
-                _gridSquares[_gridSquares.Count - 1].transform.parent = this.transform;
+                _gridSquares[_gridSquares.Count - 1].transform.SetParent(transform);
                 _gridSquares[_gridSquares.Count - 1].transform.localScale = new Vector3(_squareScale, _squareScale, _squareScale);
             }
     }
@@ -47,6 +48,7 @@ public class SudokuGrid : MonoBehaviour
 
         int _columnNumber = 0;
         int _rowNumber = 0;
+
         foreach(GameObject _square in _gridSquares)
         {
             if(_columnNumber + 1 > _columns)

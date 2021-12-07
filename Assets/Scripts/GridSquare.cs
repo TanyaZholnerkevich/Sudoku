@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GridSquare : Selectable
 {
     public GameObject _numberText;
-    private int _number = 0; 
+    public int _number; 
 
     
     void Update()
@@ -16,15 +16,16 @@ public class GridSquare : Selectable
 
     public void DisplayText()
     {
-        if (_number <= 0)
+        if (_number == 0)
             _numberText.GetComponent<Text>().text = "";
         else
             _numberText.GetComponent<Text>().text = _number.ToString();
     }
 
-    public void SetNumber(int number)
+    public void SetNumber(int _inputNumber)
     {
-        number = _number;
+        _number = _inputNumber;
+
         DisplayText();
     }
 }
