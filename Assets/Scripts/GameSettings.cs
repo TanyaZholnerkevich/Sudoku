@@ -37,7 +37,7 @@ public class GameSettings : MonoBehaviour
         _gameMode = _mode;
     }
 
-    public void _SetGameMode(string _mode)
+    public void SetGameMode(string _mode)
     {
         if (_mode == "Easy") 
             SetGameMode(EGameMode.Easy);

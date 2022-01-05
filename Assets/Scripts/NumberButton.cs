@@ -8,16 +8,6 @@ using UnityEngine.EventSystems;
 public class NumberButton : Selectable, IPointerClickHandler, ISubmitHandler, IPointerUpHandler, IPointerExitHandler
 {
     public int _value = 0;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OnPointerClick(PointerEventData _eventData)
     {
